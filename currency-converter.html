@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Currency Converter</title>
+  <style>
+    body {
+      background: linear-gradient(135deg, #74ebd5, #acb6e5);
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      padding: 50px;
+    }
+    h1 {
+      font-size: 2.5rem;
+      color: #333;
+    }
+    .converter {
+      background: white;
+      border-radius: 12px;
+      padding: 30px;
+      display: inline-block;
+      margin-top: 30px;
+      box-shadow: 0px 0px 20px rgba(0,0,0,0.1);
+    }
+    select, input {
+      font-size: 1.2rem;
+      padding: 10px;
+      margin: 10px;
+      width: 200px;
+    }
+    button {
+      font-size: 1.2rem;
+      padding: 10px 20px;
+      margin-top: 20px;
+      cursor: pointer;
+      background-color: #4CAF50;
+      border: none;
+      color: white;
+      border-radius: 8px;
+      transition: 0.3s;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    #result {
+      margin-top: 20px;
+      font-size: 1.5rem;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Currency Converter</h1>
+
+<div class="converter">
+  <input type="number" id="amount" placeholder="Enter amount">
+
+  <div>
+    <select id="fromCurrency">
+      <option value="USD">USD</option>
+      <option value="EUR">EUR</option>
+      <option value="INR">INR</option>
+      <option value="GBP">GBP</option>
+      <option value="JPY">JPY</option>
+    </select>
+
+    to
+
+    <select id="toCurrency">
+      <option value="USD">USD</option>
+      <option value="EUR">EUR</option>
+      <option value="INR">INR</option>
+      <option value="GBP">GBP</option>
+      <option value="JPY">JPY</option>
+    </select>
+  </div>
+
+  <button onclick="convertCurrency()">Convert</button>
+
+  <div id="result"></div>
+</div>
+
+<script>
+  const rates = {
+    "USD": 1,       // Base currency
+    "EUR": 0.91,
+    "INR": 83.1,
+    "GBP": 0.78,
+    "JPY": 156.5
+  };
+
+  function convertCurrency() {
+    const amount = parseFloat(document.getElementById('amount').value);
+    const fromCurrency = document.getElementById('fromCurrency').value;
+    const toCurrency = document.getElementById('toCurrency').value;
+
+    if (isNaN(amount)) {
+      document.getElementById('result').innerHTML = "Please enter a valid amount!";
+      return;
+    }
+
+    const usdAmount = amount / rates[fromCurrency];
+    const convertedAmount = usdAmount * rates[toCurrency];
+
+    document.getElementById('result').innerHTML = 
+      `${amount} ${fromCurrency} = ${convertedAmount.toFixed(2)} ${toCurrency}`;
+  }
+</script>
+
+</body>
+</html>
